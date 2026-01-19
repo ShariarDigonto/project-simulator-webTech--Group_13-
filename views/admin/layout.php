@@ -23,3 +23,11 @@
                 <a href="index.php?controller=AdminController&action=pending">Pending</a>
                 <a href="index.php?action=logout">Logout</a>
             </nav>
+
+            
+             <?php if (!empty($error)): ?>
+                <div class="alert alert-error"><?php echo htmlspecialchars($error); ?></div>
+            <?php endif; ?>
+            <?php if (!empty($success)): ?>
+                <div class="alert alert-success"><?php echo htmlspecialchars($success); ?></div>
+            <?php endif; ?>
