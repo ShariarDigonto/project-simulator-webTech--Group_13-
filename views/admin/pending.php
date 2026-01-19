@@ -1,6 +1,4 @@
-<?php
-ob_start();
-?>
+
 <div class="table-header">
     <div>
         <strong>Pending Requests:</strong> <?php echo count($users); ?>
@@ -37,3 +35,14 @@ ob_start();
                      <a href="index.php?controller=AdminController&action=approve&id=<?php echo $u['id']; ?>">Approve</a>
                         |
                      <a href="index.php?controller=AdminController&action=reject&id=<?php echo $u['id']; ?>">Reject</a>
+
+                     </td>
+                </tr>
+            <?php endforeach; ?>
+        <?php endif; ?>
+        </tbody>
+    </table>
+</div>
+<?php
+$content = ob_get_clean();
+require __DIR__ . '/layout.php';
