@@ -28,3 +28,10 @@ ob_start();
         <?php else: ?>
             <?php foreach ($users as $u): ?>
                 <tr>
+
+                <td><?php echo htmlspecialchars($u['id']); ?></td>
+                    <td><?php echo htmlspecialchars($u['name']); ?></td>
+                    <td><?php echo htmlspecialchars($u['email']); ?></td>
+                    <td><?php echo htmlspecialchars(ucfirst($u['role'])); ?></td>
+                    <td><?php echo htmlspecialchars(ucfirst($u['status'])); ?></td>
+                    <td>
