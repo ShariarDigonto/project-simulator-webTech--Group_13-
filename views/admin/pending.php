@@ -8,3 +8,14 @@ ob_start();
 </div>
 <div class="table-wrapper">
     <table class="simple-table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Role</th>
+            <th>Requested At</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
