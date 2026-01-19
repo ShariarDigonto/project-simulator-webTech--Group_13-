@@ -13,3 +13,12 @@
             <?php if (!empty($pageTitle)): ?>
                 <p class="auth-subtitle"><?php echo htmlspecialchars($pageTitle); ?></p>
             <?php endif; ?>
+            </div>
+        <div class="auth-body">
+            <nav class="admin-nav">
+                <a href="index.php?controller=StudentController&action=dashboard">Dashboard</a>
+                <a href="index.php?controller=StudentController&action=search">Search Users</a>
+                <a href="index.php?action=changePassword">Change Password</a>
+                <a href="index.php?action=logout">Logout</a>
+
+            </nav>
