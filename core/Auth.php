@@ -13,6 +13,10 @@ class Auth
     {
         self::requireLogin();
         if (empty($_SESSION['user_role']) || $_SESSION['user_role'] !== $role) {
+            
+            header('Location: index.php?action=login');
+
+            exit;
 
         }
     }
