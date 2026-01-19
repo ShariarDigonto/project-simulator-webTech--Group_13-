@@ -1,5 +1,4 @@
 <?php
-
 spl_autoload_register(function ($class) {
     $paths = [
         __DIR__ . '/controllers/' . $class . '.php',
@@ -13,7 +12,6 @@ spl_autoload_register(function ($class) {
         }
     }
 });
-
 
 require_once __DIR__ . '/config/config.php';
 
@@ -29,5 +27,4 @@ $controller = new $controllerName();
 if (!method_exists($controller, $action)) {
     die("Action $action not found");
 }
-
 $controller->$action();
