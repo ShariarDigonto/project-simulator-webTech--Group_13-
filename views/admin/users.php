@@ -18,3 +18,13 @@ ob_start();
             <th>Role</th>
             <th>Status</th>
             <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <?php if (empty($users)): ?>
+            <tr>
+                <td colspan="6" class="text-center">No users found.</td>
+            </tr>
+        <?php else: ?>
+            <?php foreach ($users as $u): ?>
+                <tr>
