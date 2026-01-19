@@ -19,3 +19,8 @@ ob_start();
         </tr>
         </thead>
         <tbody>
+
+         <?php if (empty($users)): ?>
+            <tr>
+                <td colspan="6" class="text-center">No pending users.</td>
+            </tr>
