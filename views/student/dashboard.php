@@ -5,6 +5,7 @@ ob_start();
 <div class="table-wrapper">
     <table class="simple-table">
         <thead>
+            
         <tr>
             <th>Group</th>
             <th>Teacher ID</th>
