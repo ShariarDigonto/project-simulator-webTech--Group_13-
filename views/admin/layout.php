@@ -14,3 +14,12 @@
                 <p class="auth-subtitle"><?php echo htmlspecialchars($pageTitle); ?></p>
             <?php endif; ?>
         </div>
+        <div class="auth-body">
+            <nav class="admin-nav">
+                <a href="index.php?controller=AdminController&action=dashboard">Dashboard</a>
+                <a href="index.php?controller=AdminController&action=users">All Users</a>
+                <a href="index.php?controller=AdminController&action=students">Students</a>
+                <a href="index.php?controller=AdminController&action=teachers">Teachers</a>
+                <a href="index.php?controller=AdminController&action=pending">Pending</a>
+                <a href="index.php?action=logout">Logout</a>
+            </nav>
