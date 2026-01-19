@@ -31,3 +31,12 @@
             <?php if (!empty($success)): ?>
                 <div class="alert alert-success"><?php echo htmlspecialchars($success); ?></div>
             <?php endif; ?>
+
+            <?php echo $content ?? ''; ?>
+        </div>
+     
+    </div>
+</div>
+<script src="public/js/app.js"></script>
+</body>
+</html>
