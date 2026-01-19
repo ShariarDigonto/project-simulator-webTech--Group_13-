@@ -30,3 +30,12 @@
                     <td>
                         <a href="index.php?controller=StudentController&action=submit&assignment_id=<?php echo $a['id']; ?>">Submit</a>
                     </td>
+                     </tr>
+            <?php endforeach; ?>
+        <?php endif; ?>
+        </tbody>
+    </table>
+</div>
+<?php
+$content = ob_get_clean();
+require __DIR__ . '/layout.php';
