@@ -120,3 +120,14 @@ class AdminController
         $pageTitle = 'Edit User';
         require __DIR__ . '/../views/admin/user_form.php';
     }
+ public function add()
+    {
+        $this->requireAdmin();
+
+        $error = '';
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $name = trim($_POST['name'] ?? '');
+            $email = trim($_POST['email'] ?? '');
+            $password = trim($_POST['password'] ?? '');
+            $role = trim($_POST['role'] ?? '');
