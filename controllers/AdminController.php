@@ -79,3 +79,14 @@ class AdminController
         header('Location: index.php?controller=AdminController&action=pending');
         exit;
     }
+      public function delete()
+    {
+        $this->requireAdmin();
+
+        $id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
+        if ($id > 0) {
+            User::deleteById($id);
+        }
+        header('Location: index.php?controller=AdminController&action=users');
+        exit;
+    }
