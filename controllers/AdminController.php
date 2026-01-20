@@ -131,3 +131,15 @@ class AdminController
             $email = trim($_POST['email'] ?? '');
             $password = trim($_POST['password'] ?? '');
             $role = trim($_POST['role'] ?? '');
+        if ($name === '' || $email === '' || $password === '' || $role === '') {
+                $error = 'All fields are required.';
+            } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                $error = 'Invalid email address.';
+            } elseif (!in_array($role, ['teacher', 'student'], true)) {
+                $error = 'Role must be Teacher or Student.';
+            } else {
+                User::create($name, $email, $password, $role, 'approved');
+                header('Location: index.php?controller=AdminController&action=users');
+                exit;
+            }
+        }
