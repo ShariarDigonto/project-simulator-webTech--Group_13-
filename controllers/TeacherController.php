@@ -216,14 +216,7 @@ class TeacherController
         require __DIR__ . '/../views/teacher/search.php';
     }
 
-    public function profile()
-    {
-        $this->requireTeacher();
-        $id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
-        $user = User::findById($id);
-        $pageTitle = 'User Profile';
-        require __DIR__ . '/../views/teacher/profile.php';
-    }
+    
 
    public function profile()
     {
