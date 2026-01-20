@@ -117,7 +117,7 @@ class AdminController
                 exit;
             }
         
-            
+
         }
         $user = User::findById($id);
         $pageTitle = 'Edit User';
