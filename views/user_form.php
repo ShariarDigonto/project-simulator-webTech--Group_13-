@@ -5,3 +5,9 @@
             <input type="text" id="name" name="name"
                    value="<?php echo $isEdit ? htmlspecialchars($user->name) : ''; ?>" required>
         </div>
+
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email"
+                   value="<?php echo $isEdit ? htmlspecialchars($user->email) : ''; ?>" required>
+        </div>
