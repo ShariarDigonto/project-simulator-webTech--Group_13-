@@ -129,6 +129,64 @@ class User
         $stmt = $db->prepare('UPDATE users SET password = ? WHERE id = ?');
         return $stmt->execute([$hash, $userId]);
     }
+    public static function generatePasswordResetToken($userId)
+    {
+        $db = getDB();
+        $token = bin2hex(random_bytes(32));
+        $expiresAt = date('Y-m-d H:i:s', strtotime('+1 hour'));
+        
+        // First, check if columns exist by trying to update them
+        try {
+            $stmt = $db->prepare('UPDATE users SET password_reset_token = ?, password_reset_expires = ? WHERE id = ?');
+            $stmt->execute([$token, $expiresAt, $userId]);
+            return $token;
+        } catch (PDOException $e) {
+            // If columns don't exist, return null (database needs migration)
+            return null;
+        }
+    }
+
+    public static function findByResetToken($token)
+    {
+        $db = getDB();
+        try {
+            // Use UTC_TIMESTAMP() or compare with PHP datetime for better timezone handling
+            $stmt = $db->prepare('SELECT * FROM users WHERE password_reset_token = ? AND password_reset_expires > UTC_TIMESTAMP() LIMIT 1');
+            $stmt->execute([$token]);
+            $data = $stmt->fetch();
+            if ($data) {
+                // Double-check expiration in PHP (timezone-safe)
+                $expiresAt = strtotime($data['password_reset_expires']);
+                if ($expiresAt <= time()) {
+                    return null; // Token has expired
+                }
+                
+                $user = new self();
+                foreach ($data as $key => $value) {
+                    if (property_exists($user, $key)) {
+                        $user->$key = $value;
+                    }
+                }
+                return $user;
+            }
+        } catch (PDOException $e) {
+            // Columns don't exist or query error
+            error_log("findByResetToken error: " . $e->getMessage());
+            return null;
+        }
+        return null;
+    }
+
+    public static function clearResetToken($userId)
+    {
+        $db = getDB();
+        try {
+            $stmt = $db->prepare('UPDATE users SET password_reset_token = NULL, password_reset_expires = NULL WHERE id = ?');
+            return $stmt->execute([$userId]);
+        } catch (PDOException $e) {
+            return false;
+        }
+    }
 
     
 }
