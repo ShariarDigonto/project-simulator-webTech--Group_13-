@@ -1,3 +1,7 @@
+<?php
+ob_start();
+$isEdit = !empty($user);
+?>
 <form class="auth-form" method="post">
     <div class="form-row">
         <div class="form-group">
@@ -31,3 +35,22 @@
                 <?php endif; ?>
             </select>
         </div>
+         <?php if ($isEdit): ?>
+            <div class="form-group">
+                <label for="status">Status</label>
+                <select id="status" name="status" required>
+                    <option value="pending" <?php echo $user->status === 'pending' ? 'selected' : ''; ?>>Pending</option>
+                    <option value="approved" <?php echo $user->status === 'approved' ? 'selected' : ''; ?>>Approved</option>
+                    <option value="rejected" <?php echo $user->status === 'rejected' ? 'selected' : ''; ?>>Rejected</option>
+                </select>
+            </div>
+        <?php endif; ?>
+    </div>
+<button type="submit" class="btn btn-primary">
+        <?php echo $isEdit ? 'Update User' : 'Create User'; ?>
+    </button>
+</form>
+<?php
+$content = ob_get_clean();
+require __DIR__ . '/layout.php';
+
