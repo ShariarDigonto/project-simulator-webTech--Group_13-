@@ -33,3 +33,9 @@
                 <?php if ($isEdit && $user->role === 'admin'): ?>
                     <option value="admin" selected>Admin</option>
                 <?php endif; ?>
+                 </select>
+        </div>
+        <?php if ($isEdit): ?>
+            <div class="form-group">
+                <label for="status">Status</label>
+                <select id="status" name="status" required>
