@@ -23,7 +23,7 @@ $isEdit = !empty($user);
             </div>
         </div>
     <?php endif; ?>
-    
+
     <div class="form-row">
         <div class="form-group">
             <label for="role">Role</label>
@@ -47,7 +47,7 @@ $isEdit = !empty($user);
             </div>
         <?php endif; ?>
     </div>
-<button type="submit" class="btn btn-primary">
+    <button type="submit" class="btn btn-primary">
         <?php echo $isEdit ? 'Update User' : 'Create User'; ?>
     </button>
 </form>
