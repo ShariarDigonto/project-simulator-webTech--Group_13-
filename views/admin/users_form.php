@@ -23,7 +23,8 @@ $isEdit = !empty($user);
             </div>
         </div>
     <?php endif; ?>
-<div class="form-row">
+    
+    <div class="form-row">
         <div class="form-group">
             <label for="role">Role</label>
             <select id="role" name="role" required>
