@@ -90,3 +90,9 @@ class AdminController
         header('Location: index.php?controller=AdminController&action=users');
         exit;
     }
+     public function edit()
+    {
+        $this->requireAdmin();
+
+        $id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
+        $error = '';
