@@ -13,7 +13,7 @@ class AdminController
     public function dashboard()
     {
         $this->requireAdmin();
-         $pageTitle = 'Admin Dashboard';
+        $pageTitle = 'Admin Dashboard';
         $pendingCount = count(User::allPending());
         $content = '<p>Welcome, Admin.</p>';
         $content .= '<p><a href="index.php?controller=AdminController&action=users">Manage All Users</a></p>';
@@ -116,11 +116,12 @@ class AdminController
                 exit;
             }
         }
- $user = User::findById($id);
+        $user = User::findById($id);
         $pageTitle = 'Edit User';
         require __DIR__ . '/../views/admin/user_form.php';
     }
- public function add()
+
+    public function add()
     {
         $this->requireAdmin();
 
@@ -143,7 +144,7 @@ class AdminController
                 exit;
             }
         }
- $user = null;
+        $user = null;
         $pageTitle = 'Add User';
         require __DIR__ . '/../views/admin/user_form.php';
     }
