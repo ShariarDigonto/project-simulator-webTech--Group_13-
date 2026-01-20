@@ -1,3 +1,7 @@
+<?php
+ob_start();
+$isEdit = !empty($user);
+?>
 <form class="auth-form" method="post">
     <div class="form-row">
         <div class="form-group">
@@ -42,3 +46,11 @@
             </div>
         <?php endif; ?>
     </div>
+<button type="submit" class="btn btn-primary">
+        <?php echo $isEdit ? 'Update User' : 'Create User'; ?>
+    </button>
+</form>
+<?php
+$content = ob_get_clean();
+require __DIR__ . '/layout.php';
+
