@@ -56,3 +56,14 @@ class AdminController
         $users = User::allPending();
         require __DIR__ . '/../views/admin/pending.php';
     }
+     public function approve()
+    {
+        $this->requireAdmin();
+
+        $id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
+        if ($id > 0) {
+            User::updateStatus($id, 'approved');
+        }
+        header('Location: index.php?controller=AdminController&action=pending');
+        exit;
+    }
