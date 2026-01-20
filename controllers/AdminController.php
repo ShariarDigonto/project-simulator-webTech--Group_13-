@@ -47,3 +47,12 @@ class AdminController
         $users = User::allByRole('teacher');
         require __DIR__ . '/../views/admin/users.php';
     }
+
+     public function pending()
+    {
+        $this->requireAdmin();
+
+        $pageTitle = 'Pending Signups';
+        $users = User::allPending();
+        require __DIR__ . '/../views/admin/pending.php';
+    }
