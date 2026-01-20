@@ -90,19 +90,20 @@ class AdminController
         header('Location: index.php?controller=AdminController&action=users');
         exit;
     }
-     public function edit()
+    public function edit()
     {
         $this->requireAdmin();
 
         $id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
         $error = '';
 
-         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $name = trim($_POST['name'] ?? '');
             $email = trim($_POST['email'] ?? '');
             $role = trim($_POST['role'] ?? '');
             $status = trim($_POST['status'] ?? '');
-             if ($name === '' || $email === '' || $role === '' || $status === '') {
+
+            if ($name === '' || $email === '' || $role === '' || $status === '') {
                 $error = 'All fields are required.';
             } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
                 $error = 'Invalid email address.';
@@ -115,6 +116,7 @@ class AdminController
                 header('Location: index.php?controller=AdminController&action=users');
                 exit;
             }
+        
         }
         $user = User::findById($id);
         $pageTitle = 'Edit User';
