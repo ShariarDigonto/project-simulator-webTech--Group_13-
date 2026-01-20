@@ -1,6 +1,90 @@
--- MySQL schema for Simple LMS (Admin/Teacher/Student)
 
 -- 1) Create database
 -- Run these commands in phpMyAdmin or MySQL client:
--- CREATE DATABASE dig_db CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
--- USE dig_db;
+-- CREATE DATABASE digg1_db CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+-- USE digg1_db;
+
+-- 2) Users table (for all roles)
+CREATE TABLE IF NOT EXISTS users (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    email VARCHAR(120) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    password_reset_token VARCHAR(64) NULL DEFAULT NULL,
+    password_reset_expires DATETIME NULL DEFAULT NULL,
+    role ENUM('admin', 'teacher', 'student') NOT NULL,
+    status ENUM('pending', 'approved', 'rejected') NOT NULL DEFAULT 'pending',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    INDEX idx_password_reset_token (password_reset_token)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- Groups 
+CREATE TABLE IF NOT EXISTS groups (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    teacher_id INT UNSIGNED NOT NULL,
+    name VARCHAR(120) NOT NULL,
+    description TEXT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT fk_groups_teacher FOREIGN KEY (teacher_id) REFERENCES users(id) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- Group members 
+CREATE TABLE IF NOT EXISTS group_members (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    group_id INT UNSIGNED NOT NULL,
+    student_id INT UNSIGNED NOT NULL,
+    added_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    UNIQUE KEY uq_group_student (group_id, student_id),
+    CONSTRAINT fk_group_members_group FOREIGN KEY (group_id) REFERENCES groups(id) ON DELETE CASCADE,
+    CONSTRAINT fk_group_members_student FOREIGN KEY (student_id) REFERENCES users(id) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- Messages (group chat + private chat)
+
+CREATE TABLE IF NOT EXISTS messages (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    group_id INT UNSIGNED NULL,
+    sender_id INT UNSIGNED NOT NULL,
+    receiver_id INT UNSIGNED NULL,
+    body TEXT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    INDEX idx_messages_group (group_id, created_at),
+    INDEX idx_messages_private (sender_id, receiver_id, created_at),
+    CONSTRAINT fk_messages_group FOREIGN KEY (group_id) REFERENCES groups(id) ON DELETE CASCADE,
+    CONSTRAINT fk_messages_sender FOREIGN KEY (sender_id) REFERENCES users(id) ON DELETE CASCADE,
+    CONSTRAINT fk_messages_receiver FOREIGN KEY (receiver_id) REFERENCES users(id) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- Assignments 
+CREATE TABLE IF NOT EXISTS assignments (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    group_id INT UNSIGNED NOT NULL,
+    teacher_id INT UNSIGNED NOT NULL,
+    title VARCHAR(150) NOT NULL,
+    description TEXT NULL,
+    file_path VARCHAR(255) NULL,
+    due_at DATETIME NULL,
+    allow_late TINYINT(1) NOT NULL DEFAULT 0,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT fk_assignments_group FOREIGN KEY (group_id) REFERENCES groups(id) ON DELETE CASCADE,
+    CONSTRAINT fk_assignments_teacher FOREIGN KEY (teacher_id) REFERENCES users(id) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- Submissions 
+CREATE TABLE IF NOT EXISTS submissions (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    assignment_id INT UNSIGNED NOT NULL,
+    student_id INT UNSIGNED NOT NULL,
+    file_path VARCHAR(255) NOT NULL,
+    submitted_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    UNIQUE KEY uq_assignment_student (assignment_id, student_id),
+    CONSTRAINT fk_submissions_assignment FOREIGN KEY (assignment_id) REFERENCES assignments(id) ON DELETE CASCADE,
+    CONSTRAINT fk_submissions_student FOREIGN KEY (student_id) REFERENCES users(id) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- admin account:
+--      email:    admin@gmail.com
+--      password: admin12345
+
+-- - Open http://localhost/digg1/index.php?action=login to use the app
+
