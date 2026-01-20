@@ -21,3 +21,11 @@ class AdminController
         $content .= '<p><a href="index.php?action=logout">Logout</a></p>';
         require __DIR__ . '/../views/admin/layout.php';
     }
+    public function users()
+    {
+        $this->requireAdmin();
+
+        $pageTitle = 'All Users';
+        $users = User::all();
+        require __DIR__ . '/../views/admin/users.php';
+    }
