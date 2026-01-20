@@ -1,0 +1,6 @@
+-- MySQL schema for Simple LMS (Admin/Teacher/Student)
+
+-- 1) Create database
+-- Run these commands in phpMyAdmin or MySQL client:
+-- CREATE DATABASE dig_db CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+-- USE dig_db;
