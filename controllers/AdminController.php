@@ -29,3 +29,30 @@ class AdminController
         $users = User::all();
         require __DIR__ . '/../views/admin/users.php';
     }
+     
+    public function students()
+    {
+        $this->requireAdmin();
+
+        $pageTitle = 'Student List';
+        $users = User::allByRole('student');
+        require __DIR__ . '/../views/admin/users.php';
+    }
+
+     public function teachers()
+    {
+        $this->requireAdmin();
+
+        $pageTitle = 'Teacher List';
+        $users = User::allByRole('teacher');
+        require __DIR__ . '/../views/admin/users.php';
+    }
+
+     public function pending()
+    {
+        $this->requireAdmin();
+
+        $pageTitle = 'Pending Signups';
+        $users = User::allPending();
+        require __DIR__ . '/../views/admin/pending.php';
+    }
