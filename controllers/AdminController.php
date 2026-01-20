@@ -102,3 +102,17 @@ class AdminController
             $email = trim($_POST['email'] ?? '');
             $role = trim($_POST['role'] ?? '');
             $status = trim($_POST['status'] ?? '');
+             if ($name === '' || $email === '' || $role === '' || $status === '') {
+                $error = 'All fields are required.';
+            } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                $error = 'Invalid email address.';
+            } elseif (!in_array($role, ['teacher', 'student', 'admin'], true)) {
+                $error = 'Invalid role.';
+            } elseif (!in_array($status, ['pending', 'approved', 'rejected'], true)) {
+                $error = 'Invalid status.';
+            } else {
+                User::updateUser($id, $name, $email, $role, $status);
+                header('Location: index.php?controller=AdminController&action=users');
+                exit;
+            }
+        }
