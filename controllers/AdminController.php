@@ -67,3 +67,15 @@ class AdminController
         header('Location: index.php?controller=AdminController&action=pending');
         exit;
     }
+
+     public function reject()
+    {
+        $this->requireAdmin();
+
+        $id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
+        if ($id > 0) {
+            User::updateStatus($id, 'rejected');
+        }
+        header('Location: index.php?controller=AdminController&action=pending');
+        exit;
+    }
