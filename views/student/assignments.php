@@ -1,3 +1,6 @@
+<?php
+ob_start();
+?>
 <p><strong>Group:</strong> <?php echo htmlspecialchars($group['name']); ?></p>
 
 <div class="table-wrapper">
@@ -30,7 +33,7 @@
                     <td>
                         <a href="index.php?controller=StudentController&action=submit&assignment_id=<?php echo $a['id']; ?>">Submit</a>
                     </td>
-                     </tr>
+                </tr>
             <?php endforeach; ?>
         <?php endif; ?>
         </tbody>
@@ -39,3 +42,4 @@
 <?php
 $content = ob_get_clean();
 require __DIR__ . '/layout.php';
+
