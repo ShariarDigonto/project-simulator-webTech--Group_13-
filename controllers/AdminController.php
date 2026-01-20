@@ -29,3 +29,14 @@ class AdminController
         $users = User::all();
         require __DIR__ . '/../views/admin/users.php';
     }
+     
+    public function students()
+    {
+        $this->requireAdmin();
+
+        $pageTitle = 'Student List';
+        $users = User::allByRole('student');
+        require __DIR__ . '/../views/admin/users.php';
+    }
+
+    
