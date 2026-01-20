@@ -39,4 +39,11 @@ class AdminController
         require __DIR__ . '/../views/admin/users.php';
     }
 
-    
+     public function teachers()
+    {
+        $this->requireAdmin();
+
+        $pageTitle = 'Teacher List';
+        $users = User::allByRole('teacher');
+        require __DIR__ . '/../views/admin/users.php';
+    }
