@@ -44,3 +44,10 @@
                     <option value="rejected" <?php echo $user->status === 'rejected' ? 'selected' : ''; ?>>Rejected</option>
                 </select>
             </div>
+            <?php endif; ?>
+    </div>
+
+    <button type="submit" class="btn btn-primary">
+        <?php echo $isEdit ? 'Update User' : 'Create User'; ?>
+    </button>
+</form>
