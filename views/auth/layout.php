@@ -1,4 +1,6 @@
+<?php
 
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -28,7 +30,7 @@
       
     </div>
 </div>
-</div>
+
 <script src="public/js/app.js"></script>
 </body>
 </html>
