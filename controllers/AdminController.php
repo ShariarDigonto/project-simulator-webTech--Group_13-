@@ -143,3 +143,8 @@ class AdminController
                 exit;
             }
         }
+ $user = null;
+        $pageTitle = 'Add User';
+        require __DIR__ . '/../views/admin/user_form.php';
+    }
+}
