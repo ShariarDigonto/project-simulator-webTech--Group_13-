@@ -96,3 +96,9 @@ class AdminController
 
         $id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
         $error = '';
+
+         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $name = trim($_POST['name'] ?? '');
+            $email = trim($_POST['email'] ?? '');
+            $role = trim($_POST['role'] ?? '');
+            $status = trim($_POST['status'] ?? '');
