@@ -225,6 +225,39 @@ class TeacherController
         require __DIR__ . '/../views/teacher/profile.php';
     }
 
-   
+   public function profile()
+    {
+        $this->requireTeacher();
+        $id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
+        $user = User::findById($id);
+        $pageTitle = 'User Profile';
+        require __DIR__ . '/../views/teacher/profile.php';
+    }
+
+    public function privateChat()
+    {
+        $this->requireTeacher();
+        $me = Auth::userId();
+        $otherId = isset($_GET['id']) ? (int)$_GET['id'] : 0;
+        $other = User::findById($otherId);
+
+        if (!$other || $other->status !== 'approved') {
+            header('Location: index.php?controller=TeacherController&action=search');
+            exit;
+        }
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $body = trim($_POST['body'] ?? '');
+            if ($body !== '') {
+                Message::sendPrivate($me, $otherId, $body);
+            }
+            header('Location: index.php?controller=TeacherController&action=privateChat&id=' . $otherId);
+            exit;
+        }
+
+        $messages = Message::historyPrivate($me, $otherId);
+        $pageTitle = 'Private Chat';
+        require __DIR__ . '/../views/teacher/private_chat.php';
+    }
 }
 
