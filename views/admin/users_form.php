@@ -31,3 +31,14 @@
                 <?php endif; ?>
             </select>
         </div>
+         <?php if ($isEdit): ?>
+            <div class="form-group">
+                <label for="status">Status</label>
+                <select id="status" name="status" required>
+                    <option value="pending" <?php echo $user->status === 'pending' ? 'selected' : ''; ?>>Pending</option>
+                    <option value="approved" <?php echo $user->status === 'approved' ? 'selected' : ''; ?>>Approved</option>
+                    <option value="rejected" <?php echo $user->status === 'rejected' ? 'selected' : ''; ?>>Rejected</option>
+                </select>
+            </div>
+        <?php endif; ?>
+    </div>
