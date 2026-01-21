@@ -13,6 +13,7 @@ class AdminController
     public function dashboard()
     {
         $this->requireAdmin();
+
         $pageTitle = 'Admin Dashboard';
         $pendingCount = count(User::allPending());
         $content = '<p>Welcome, Admin.</p>';
@@ -21,6 +22,7 @@ class AdminController
         $content .= '<p><a href="index.php?action=logout">Logout</a></p>';
         require __DIR__ . '/../views/admin/layout.php';
     }
+
     public function users()
     {
         $this->requireAdmin();
@@ -29,7 +31,7 @@ class AdminController
         $users = User::all();
         require __DIR__ . '/../views/admin/users.php';
     }
-     
+
     public function students()
     {
         $this->requireAdmin();
@@ -39,7 +41,7 @@ class AdminController
         require __DIR__ . '/../views/admin/users.php';
     }
 
-     public function teachers()
+    public function teachers()
     {
         $this->requireAdmin();
 
@@ -48,7 +50,7 @@ class AdminController
         require __DIR__ . '/../views/admin/users.php';
     }
 
-     public function pending()
+    public function pending()
     {
         $this->requireAdmin();
 
@@ -56,7 +58,8 @@ class AdminController
         $users = User::allPending();
         require __DIR__ . '/../views/admin/pending.php';
     }
-     public function approve()
+
+    public function approve()
     {
         $this->requireAdmin();
 
@@ -68,7 +71,7 @@ class AdminController
         exit;
     }
 
-     public function reject()
+    public function reject()
     {
         $this->requireAdmin();
 
@@ -79,7 +82,8 @@ class AdminController
         header('Location: index.php?controller=AdminController&action=pending');
         exit;
     }
-      public function delete()
+
+    public function delete()
     {
         $this->requireAdmin();
 
@@ -90,6 +94,7 @@ class AdminController
         header('Location: index.php?controller=AdminController&action=users');
         exit;
     }
+
     public function edit()
     {
         $this->requireAdmin();
@@ -116,9 +121,8 @@ class AdminController
                 header('Location: index.php?controller=AdminController&action=users');
                 exit;
             }
-        
-
         }
+
         $user = User::findById($id);
         $pageTitle = 'Edit User';
         require __DIR__ . '/../views/admin/user_form.php';
@@ -135,7 +139,8 @@ class AdminController
             $email = trim($_POST['email'] ?? '');
             $password = trim($_POST['password'] ?? '');
             $role = trim($_POST['role'] ?? '');
-        if ($name === '' || $email === '' || $password === '' || $role === '') {
+
+            if ($name === '' || $email === '' || $password === '' || $role === '') {
                 $error = 'All fields are required.';
             } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
                 $error = 'Invalid email address.';
@@ -147,8 +152,10 @@ class AdminController
                 exit;
             }
         }
+
         $user = null;
         $pageTitle = 'Add User';
         require __DIR__ . '/../views/admin/user_form.php';
     }
 }
+
