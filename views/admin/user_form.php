@@ -9,13 +9,14 @@ $isEdit = !empty($user);
             <input type="text" id="name" name="name"
                    value="<?php echo $isEdit ? htmlspecialchars($user->name) : ''; ?>" required>
         </div>
-         <div class="form-group">
+        <div class="form-group">
             <label for="email">Email</label>
             <input type="email" id="email" name="email"
                    value="<?php echo $isEdit ? htmlspecialchars($user->email) : ''; ?>" required>
         </div>
     </div>
-     <?php if (!$isEdit): ?>
+
+    <?php if (!$isEdit): ?>
         <div class="form-row">
             <div class="form-group">
                 <label for="password">Password</label>
@@ -36,7 +37,7 @@ $isEdit = !empty($user);
                 <?php endif; ?>
             </select>
         </div>
-         <?php if ($isEdit): ?>
+        <?php if ($isEdit): ?>
             <div class="form-group">
                 <label for="status">Status</label>
                 <select id="status" name="status" required>
@@ -47,6 +48,7 @@ $isEdit = !empty($user);
             </div>
         <?php endif; ?>
     </div>
+
     <button type="submit" class="btn btn-primary">
         <?php echo $isEdit ? 'Update User' : 'Create User'; ?>
     </button>

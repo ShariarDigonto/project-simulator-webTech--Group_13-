@@ -35,7 +35,7 @@ ob_start();
                     <td>
 
                      <a href="index.php?controller=AdminController&action=approve&id=<?php echo $u['id']; ?>">Approve</a>
-                        |
+                    
                      <a href="index.php?controller=AdminController&action=reject&id=<?php echo $u['id']; ?>">Reject</a>
 
                      </td>
