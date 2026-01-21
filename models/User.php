@@ -129,7 +129,6 @@ class User
         $stmt = $db->prepare('UPDATE users SET password = ? WHERE id = ?');
         return $stmt->execute([$hash, $userId]);
     }
-
     public static function generatePasswordResetToken($userId)
     {
         $db = getDB();
@@ -188,5 +187,7 @@ class User
             return false;
         }
     }
+
+    
 }
 
